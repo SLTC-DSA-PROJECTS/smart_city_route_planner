@@ -13,37 +13,40 @@ public class AVLTree {
 
     private AVLNode root;
 
-    private int height(AVLNode n) {
+    private int getHeight(AVLNode n) {
         return (n == null) ? 0 : n.height;
     }
 
     private int getBalance(AVLNode n) {
-        return (n == null) ? 0 : height(n.left) - height(n.right);
+        return (n == null) ? 0 : getHeight(n.left) - getHeight(n.right);
     }
 
+    private int calculateHeight(AVLNode n) {
+    	return (n == null) ? -1 : Math.max(getHeight(n.left), getHeight(n.right)) + 1;
+    }
     private AVLNode rotateRight(AVLNode y) {
         AVLNode x = y.left;
-        AVLNode T2 = x.right;
+        AVLNode temp = x.right;
 
         x.right = y;
-        y.left = T2;
+        y.left = temp;
 
-        y.height = Math.max(height(y.left), height(y.right)) + 1;
-        x.height = Math.max(height(x.left), height(x.right)) + 1;
+        y.height = calculateHeight(y);
+        x.height = calculateHeight(x);
 
         return x;
     }
 
     private AVLNode rotateLeft(AVLNode x) {
         AVLNode y = x.right;
-        AVLNode T2 = y.left;
+        AVLNode temp = y.left;
 
         y.left = x;
-        x.right = T2;
+        x.right = temp;
 
-        x.height = Math.max(height(x.left), height(x.right)) + 1;
-        y.height = Math.max(height(y.left), height(y.right)) + 1;
-
+        y.height = calculateHeight(y);
+        x.height = calculateHeight(x);
+        
         return y;
     }
 
@@ -61,7 +64,8 @@ public class AVLTree {
             return node;
         }
 
-        node.height = 1 + Math.max(height(node.left), height(node.right));
+        node.height = calculateHeight(node);
+        
 
         int balance = getBalance(node);
 

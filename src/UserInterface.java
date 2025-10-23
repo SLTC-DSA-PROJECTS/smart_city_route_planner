@@ -1,11 +1,9 @@
-package smart_city_route_planner;
-
 import java.util.Scanner;
 
 public class UserInterface  {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Graphclass city = new Graphclass();
+        Graph city = new Graph(false,false);
         AVLTree tree = new AVLTree();
 
         while (true) {
@@ -16,8 +14,7 @@ public class UserInterface  {
             System.out.println("4. Remove a road");
             System.out.println("5. Display all connections");
             System.out.println("6. Display all locations (AVL Tree)");
-            System.out.println("7. Traverse city (BFS)");
-            System.out.println("8. Exit");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
 
             int choice;
@@ -63,7 +60,7 @@ public class UserInterface  {
                     break;
 
                 case 5:
-                    city.displayConnections();
+                    city.printAllConnections();
                     break;
 
                 case 6:
@@ -71,13 +68,7 @@ public class UserInterface  {
                     break;
 
                 case 7:
-                    System.out.print("Enter starting location: ");
-                    String start = sc.nextLine().trim();
-                    city.bfsTraversal(start);
-                    break;
-
-                case 8:
-                    System.out.println("Thank you for using Smart City Route Planner!");
+                   System.out.println("Thank you for using Smart City Route Planner!");
                     return;
 
                 default:
